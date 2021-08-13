@@ -7,8 +7,17 @@ Maintainer: Murufeng
 ### [优秀论文解读]
 ### [Recent Papers]
 - Bias Loss for Neural Network
+  - paper:
+  - Github
+  
 - Mobile-Former: Bridging MobileNet and Transformer
+  - paper
+  - Github
+  
 - Levit: a vision transformer in convnet’s clothing for faster inference.
+  - paper
+  - Github
+  
 - SkiptNet
 
 #### [MobileNets]
@@ -33,4 +42,7 @@ Maintainer: Murufeng
 
 ### Han_Lab 嵌入式移动端部署压缩网络
 - Deep Compress
+- [Once for All: Train One Network and Specialize it for Efficient Deployment](https://arxiv.org/abs/1908.09791)
+- IOS: Inter-Operator Scheduler For CNN Acceleration
+- AMC: AutoML for Model Compression and Acceleration on Mobile Devices
 
