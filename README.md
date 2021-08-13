@@ -25,6 +25,7 @@ Maintainer: Murufeng
 - MobileNetV2
 - MobileNetV3
 - MobileNeXt
+- MobileDet
 
 #### [ShuffleNet]
 - ShuffleNetv1
@@ -45,4 +46,6 @@ Maintainer: Murufeng
 - [Once for All: Train One Network and Specialize it for Efficient Deployment](https://arxiv.org/abs/1908.09791)
 - IOS: Inter-Operator Scheduler For CNN Acceleration
 - AMC: AutoML for Model Compression and Acceleration on Mobile Devices
+- SpAtten: Efficient Sparse Attention Architecture with Cascade Token and Head Pruning 
+- MCUNet: Tiny Deep Learning on IoT Devices
 
