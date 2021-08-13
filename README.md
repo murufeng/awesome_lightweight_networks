@@ -10,6 +10,7 @@ Maintainer: Murufeng
 - Mobile-Former: Bridging MobileNet and Transformer
 - Levit: a vision transformer in convnet’s clothing for faster inference.
 - SkiptNet
+
 #### [MobileNets]
 - MobileNetV1
 - MobileNetV2
@@ -25,5 +26,11 @@ Maintainer: Murufeng
 - GhostNet
 - AdderSR
 
+### FaceBook系列
+- FBNetV1
+- FBNetV2
+- FBNetV3
 
+### Han_Lab 嵌入式移动端部署压缩网络
+- Deep Compress
 
