@@ -9,6 +9,7 @@ Maintainer: Murufeng
 - Bias Loss for Neural Network
 - Mobile-Former: Bridging MobileNet and Transformer
 - Levit: a vision transformer in convnet’s clothing for faster inference.
+- SkiptNet
 #### [MobileNets]
 - MobileNetV1
 - MobileNetV2
