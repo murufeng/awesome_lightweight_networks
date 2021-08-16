@@ -41,6 +41,12 @@ Maintainer: Murufeng
 - FBNetV2
 - FBNetV3
 
+### CondenseNetx系列
+
+### ESPNet系列
+
+### MicroNet系列
+
 ### Han_Lab 嵌入式移动端部署压缩网络
 - Deep Compress
 - [Once for All: Train One Network and Specialize it for Efficient Deployment](https://arxiv.org/abs/1908.09791)
