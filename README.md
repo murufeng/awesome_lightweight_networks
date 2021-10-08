@@ -19,6 +19,7 @@ Maintainer: Murufeng
   - Github
   
 - SkiptNet
+- MobileViT
 
 #### [MobileNets]
 - MobileNetV1
