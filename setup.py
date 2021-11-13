@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-  name = 'lightnet',
+  name = 'light_cnns',
   packages = find_packages(exclude=['examples']),
   version = '0.1.0',
   license='MIT',
