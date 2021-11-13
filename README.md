@@ -25,7 +25,6 @@ Maintainer: Murufeng
 - MobileNetV2
 - MobileNetV3
 - MobileNeXt
-- MobileDet
 
 #### [ShuffleNet]
 - ShuffleNetv1
