@@ -4,9 +4,8 @@ Maintainer: Murufeng
 
 ## Table of Contents
 
-### [优秀论文解读]
-### [Recent Papers]
-- Bias Loss for Neural Network
+### Mobile+Transformer
+ - Bias Loss for Neural Network
   - paper:
   - Github
   
@@ -42,11 +41,17 @@ Maintainer: Murufeng
 - FBNetV2
 - FBNetV3
 
+### 注意力系列
+ - CANet
+
 ### CondenseNetx系列
 
 ### ESPNet系列
+ - ESPNetV1
+ - ESPNetV2
 
 ### MicroNet系列
+
 
 ### Han_Lab 嵌入式移动端部署压缩网络
 - Deep Compress
@@ -55,4 +60,3 @@ Maintainer: Murufeng
 - AMC: AutoML for Model Compression and Acceleration on Mobile Devices
 - SpAtten: Efficient Sparse Attention Architecture with Cascade Token and Head Pruning 
 - MCUNet: Tiny Deep Learning on IoT Devices
-
