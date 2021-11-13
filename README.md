@@ -6,19 +6,10 @@ Maintainer: Murufeng
 
 ### Mobile+Transformer
  - Bias Loss for Neural Network
-  - paper:
-  - Github
-  
-- Mobile-Former: Bridging MobileNet and Transformer
-  - paper
-  - Github
-  
-- Levit: a vision transformer in convnet’s clothing for faster inference.
-  - paper
-  - Github
-  
-- SkiptNet
-- MobileViT
+ - Mobile-Former: Bridging MobileNet and Transformer
+ - Levit: a vision transformer in convnet’s clothing for faster inference.
+ - SkiptNet
+ - MobileViT
 
 #### [MobileNets]
 - MobileNetV1
@@ -38,14 +29,15 @@ Maintainer: Murufeng
 ### 注意力系列
  - CANet
 
-### CondenseNetx系列
+### CondenseNet系列
+- CondenseNetv1
+- CondenseNetv2
 
 ### ESPNet系列
  - ESPNetV1
  - ESPNetV2
 
 ### MicroNet系列
-
 
 ### Han_Lab 嵌入式移动端部署压缩网络
 - Deep Compress
