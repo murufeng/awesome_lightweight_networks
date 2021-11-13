@@ -35,11 +35,6 @@ Maintainer: Murufeng
 - GhostNet
 - AdderSR
 
-### FaceBook系列
-- FBNetV1
-- FBNetV2
-- FBNetV3
-
 ### 注意力系列
  - CANet
 
