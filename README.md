@@ -9,12 +9,11 @@
 
 ![](./figures/view.jpg)
 
-目前在深度学习领域分类两个派别，一派为学院派(Researcher)，研究强大、复杂的模型网络和实验方法，旨在追求更高的性能；
+目前在深度学习领域主要分为两类，一派为学院派(Researcher)，研究强大、复杂的模型网络和实验方法，旨在追求更高的性能；
 另一派为工程派(Engineer)，旨在将算法更稳定、更高效的落地部署在不同硬件平台上。因此，针对这些移动端的算力设备，
-如何去设计一种高效且精简的网络架构就显得尤为重要。从2017年以来，已出现了很多优秀实用的轻量级网络架构，但是还没有一个通用的项目把这些网络架构进行集成起来。本项目可以作为一个即插即用的工具包，通过直接调用就可以直接训练各种类型的网络。
-目前该项目暂时支持在Cifar10/100,ImageNet数据集上进行实验。后续会持续针对每个不同的具体任务，更新工业界比较实用的SOTA的网络架构模型。
-本项目主要提供一个移动端网络架构的基础性工具，避免重复造轮子，后续我们将针对具体视觉任务集成更多的网络架构。希望本项目既能**让深度学习初学者快速入门**，又能**服务科研和工业社区**。
-（同时也非常欢迎各位科研工作者将自己的工作的核心代码整理到本项目中，推动科研社区的发展，会在readme中注明代码的作者~）
+如何去设计一种高效且精简的网络架构就显得尤为重要。从2017年以来，已出现了很多优秀实用的轻量级网络架构，但是还没有一个通用的项目把这些网络架构进行集成起来。**本项目可以作为一个即插即用的工具包，通过直接调用就可以直接训练各种类型的网络**。
+目前该项目暂时支持在Cifar10/100,ImageNet数据集上进行实验。**后续会持续针对每个不同的具体任务，更新工业界比较实用的SOTA的网络架构模型**。
+本项目主要提供一个移动端网络架构的基础性工具，避免重复造轮子，后续我们将针对具体视觉任务集成更多的网络架构。希望本项目既能**让深度学习初学者快速入门**，又能**服务科研和工业社区**。（同时也非常欢迎各位科研工作者将自己的工作的核心代码整理到本项目中，推动科研社区的发展，会在readme中注明代码的作者~）
 
 ## Table of Contents
 ### [MobileNets系列](#MobileNet)
@@ -44,7 +43,6 @@
 ### [轻量级的卷积操作](#conv)
 
 ### [模型压缩方法汇总](#compress)
-
 
 ### [Bag of Tricks for Image Classification with Convolutional Neural Networks](https://arxiv.org/abs/1812.01187v2)
 
@@ -166,9 +164,10 @@ print(y.size())
 
 <a name="noah"></a>
 ### 华为诺亚方舟系列
-- AdderNet
-- GhostNet
+- [AdderNet](#add)
+- [GhostNet](#ghost)
 
+<a name="add"></a>
 #### AdderNet（加法网络)
 - [AdderNet and its Minimalist Hardware Design for Energy-Efficient Artificial Intelligence](https://arxiv.org/abs/2101.10015)
 
@@ -185,7 +184,7 @@ input = torch.randn(1, 3, 224, 224)
 y = model(input)
 print(y.size())
 ```
-
+<a name="ghost"></a>
 #### GhostNet
 - [GhostNet: More Features from Cheap Operations](https://arxiv.org/abs/1911.11907)
 ![](./figures/ghost.jpg)
@@ -204,7 +203,6 @@ print(y.size())
 
 <a name="attention"></a>
 ### 注意力系列
- - CANet
 
 #### CANet
 - [Coordinate Attention for Efficient Mobile Network Design](https://arxiv.org/abs/2103.02907)
