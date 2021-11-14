@@ -1,27 +1,28 @@
-name: Python Package using Conda
+name: Upload Python Package
 
-on: [push]
+on:
+  release:
+    types: [created]
 
 jobs:
-  build-linux:
+  deploy:
+
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 5
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.10
+    - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.10
+        python-version: '3.x'
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install setuptools wheel twine
     - name: Build and publish
       env:
-        TWINE_USERNAME: $
-        TWINE_PASSWORD: $
+        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
         python setup.py sdist bdist_wheel
         twine upload dist/*
