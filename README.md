@@ -206,6 +206,7 @@ print(y.size())
 
 #### CANet
 - [Coordinate Attention for Efficient Mobile Network Design](https://arxiv.org/abs/2103.02907)
+
 ![](./figures/canet.jpg)
 
 #### Code
