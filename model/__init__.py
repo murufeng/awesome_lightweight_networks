@@ -1,2 +1,2 @@
-from .ResNet_D import *
-from .GhostNet import *
+from model.ResNet_D import *
+from model.GhostNet import *
