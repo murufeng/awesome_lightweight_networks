@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
   name = 'light_cnns',
-  packages = find_packages(exclude=['examples']),
+  packages = find_packages(),
   version = '0.1.0',
   license='MIT',
   description = 'Implementation of Lightweight Network in Pytorch',
@@ -13,6 +13,7 @@ setup(
     'artificial intelligence',
     'lightweight neural network',
     'image classification',
+    'image segmentation',
     'computer vision'
   ],
   install_requires=[
@@ -26,8 +27,6 @@ setup(
       'Intended Audience :: Science/Research',
       'License :: OSI Approved :: MIT License',
       'Programming Language :: Python :: 3.6',
-      'Programming Language :: Python :: 3.7',
-      'Programming Language :: Python :: 3.8',
       'Topic :: Scientific/Engineering :: Artificial Intelligence',
       'Topic :: Software Development',
       'Topic :: Software Development :: Libraries',
