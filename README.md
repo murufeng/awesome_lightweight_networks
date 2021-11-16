@@ -30,7 +30,7 @@
 
 ### [轻量级注意力网络架构](#attention)
 
-### [Transfor轻量级网络结构](#vit)
+### [Transformer轻量级网络结构](#vit)
 
 ### [移动端部署CPU网络架构](#cpu)
 
