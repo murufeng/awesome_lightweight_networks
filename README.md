@@ -70,6 +70,7 @@ print(y.size())
 
 <a name="MobileNet"></a>
 ### MobileNets系列
+本小节主要汇总了基于Google 提出来的适用于手机端的网络架构MobileNets的系列改进，针对每个网络架构，将主要总结每个不同模型的核心创新点，模型结构图以及代码实现.
    - [MobileNetV1](#mbv1)
    - [MobileNetV2](#mbv2)
    - [MobileNetV3](#mbv3)
@@ -77,7 +78,9 @@ print(y.size())
 
 <a name="mbv1"></a>  
 #### MobileNetv1 网络模块
+
 - [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/abs/1704.04861)
+MobileNetv1模型是Google针对移动端设备提出的一种轻量级的卷积神经网络，其使用的核心思想便是depthwise separable convolution（深度可分离卷积）。具体结构如下所示：
 
 ![](./figures/mbv1.jpg)
 
@@ -96,6 +99,12 @@ print(y.size())
 #### MobileNetv2 网络模块
 - [MobileNetV2: Inverted Residuals and Linear Bottlenecks](https://arxiv.org/abs/1801.04381)
 
+mobilenetv2 沿用特征复用结构（残差结构），首先进行Expansion操作然后再进行Projection操作，最终构建一个逆残差网络模块（即Inverted residual block）。
+
+- 增强了梯度的传播，显著减少推理期间所需的内存占用。
+- 使用 RELU6（最高输出为 6）激活函数，使得模型在低精度计算下具有更强的鲁棒性。
+- 在经过projection layer转换到低维空间后，将第二个pointwise convolution后的 ReLU6改成Linear结构，保留了特征多样性，增强网络的表达能力（Linear Bottleneck）
+
 ![](./figures/mbv2.jpg)
 
 #### Code
@@ -109,10 +118,47 @@ input = torch.randn(1, 3, 224, 224)
 y = model(input)
 print(y.size())
 ```
+
+<a name="mbv3"></a>  
+#### MobileNetV3 网络模块
+
+Searching for MobileNetV3
+- 论文地址：https://arxiv.org/abs/1905.02244
+
+核心改进点：
+- 网络的架构基于NAS实现的MnasNet（效果比MobileNetV2好）  
+- 论文推出两个版本：Large 和 Small，分别适用于不同的场景;
+- 继承了MobileNetV1的深度可分离卷积  
+- 继承了MobileNetV2的具有线性瓶颈的倒残差结构  
+- 引入基于squeeze and excitation结构的轻量级注意力模型(SE)  
+- 使用了一种新的激活函数h-swish(x)  
+- 网络结构搜索中，结合两种技术：资源受限的NAS（platform-aware NAS）与NetAdapt 算法获得卷积核和通道的最佳数量
+- 修改了MobileNetV2网络后端输出head部分;
+
+![](./figures/mbv3_1.jpg)
+![](./figures/mbv3_2.jpg)
+
+#### Code
+```python
+import torch
+from light_cnns import mbv3_small
+#from light_cnns import mbv3_large
+model_small = mbv3_small()
+#model_large = mbv3_large()
+model_small.eval()
+print(model_small)
+input = torch.randn(1, 3, 224, 224)
+y = model_small(input)
+print(y.size())
+```
+
 <a name="mbnext"></a>  
 #### MobileNeXt 网络模块
 
 - [Rethinking Bottleneck Structure for Efficient Mobile Network Design](https://arxiv.org/abs/2007.02269)
+
+针对MobileNetV2的核心模块逆残差模块存在的问题进行了深度分析，提出了一种新颖的SandGlass模块，它可以轻易的嵌入到现有网络架构中并提升模型性能。Sandglass Block可以保证更多的信息从bottom层传递给top层，进而有助于梯度回传；执行了两次深度卷积以编码更多的空间信息。
+
 ![](./figures/mbnext.jpg)
 #### Code
 ```python
@@ -226,3 +272,5 @@ input = torch.randn(1, 3, 224, 224)
 y = model(input)
 print(y.size())
 ```
+
+
