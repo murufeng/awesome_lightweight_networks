@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
   name = 'light_cnns',
   packages = find_packages(),
-  version = '0.1.0',
+  version = '0.2.0',
   license='MIT',
   description = 'Implementation of Lightweight Network in Pytorch',
   author = 'murufeng',
