@@ -223,6 +223,11 @@ print(y.size())
 #### AdderNet（加法网络)
 - [AdderNet and its Minimalist Hardware Design for Energy-Efficient Artificial Intelligence](https://arxiv.org/abs/2101.10015)
 
+一种几乎不包含乘法的神经网络。不同于卷积网络，本文使用L1距离来度量神经网络中特征和滤波器之间的相关性。
+由于L1距离中只包含加法和减法，神经网络中大量的乘法运算可以被替换为加法和减法，从而大大减少了神经网络的计算代价。
+此外，该论文还设计了带有自适应学习率的改进的梯度计算方案，以确保滤波器的优化速度和更好的网络收敛。
+在CIFAR和ImageNet数据集上的结果表明AdderNet可以在分类任务上取得和CNN相似的准确率。
+
 ![](./figures/adder.jpg)
 
 #### Code
@@ -239,6 +244,10 @@ print(y.size())
 <a name="ghost"></a>
 #### GhostNet
 - [GhostNet: More Features from Cheap Operations](https://arxiv.org/abs/1911.11907)
+
+该论文提供了一个全新的Ghost模块，旨在通过廉价操作生成更多的特征图。基于一组原始的特征图，作者应用一系列线性变换，以很小的代价生成许多能从原始特征发掘所需信息的“幻影”特征图（Ghost feature maps）。该Ghost模块即插即用，通过堆叠Ghost模块得出Ghost bottleneck，进而搭建轻量级神经网络——GhostNet。在ImageNet分类任务，GhostNet在相似计算量情况下Top-1正确率达75.7%，高于MobileNetV3的75.2%
+
+
 ![](./figures/ghost.jpg)
 
 #### Code
@@ -259,6 +268,8 @@ print(y.size())
 #### CANet
 - [Coordinate Attention for Efficient Mobile Network Design](https://arxiv.org/abs/2103.02907)
 
+针对如何有效提升移动网络的卷积特征表达能力以及通道注意力(如SE)机制能够有效建模通道间相关性但忽视了位置信息的问题，本文提出了一种新颖的注意力机制：Coordinate Attention，它通过提取水平与垂直方向的注意力特征图来建模通道间的长距离依赖关系，而且水平与垂直注意力还可以有效地提供精确的空间位置信息。
+
 ![](./figures/canet.jpg)
 
 #### Code
@@ -273,4 +284,107 @@ y = model(input)
 print(y.size())
 ```
 
+#### ECANet
+
+- ECA-Net: Efficient Channel Attention for Deep Convolutional Neural Networks
+
+- 论文地址：https://arxiv.org/abs/1910.03151
+
+ECANet是一种即插即用的轻量级通道注意力模块，可显著提高CNN性能！ECANet主要对SENet模块进行了一些改进，提出了一种不降维的局部跨信道交互策略（ECA模块）和自适应选择一维卷积核大小的方法，该模块只增加了少量的参数，却能获得明显的性能增益。通过对SENet中通道注意模块的分析，实验表明避免降维对于学习通道注意力非常重要，适当的跨信道交互可以在显著降低模型复杂度的同时保持性能。因此，作者提出了一种不降维的局部跨信道交互策略，该策略可以通过一维卷积有效地实现。进一步，作者又提出了一种自适应选择一维卷积核大小的方法，以确定局部跨通道信息交互的覆盖率。
+
+**具体结构如下所示：**
+
+![](./figures/eca.jpg)
+
+
+- 代码实现
+```python
+import torch
+from light_cnns import mbv2_eca
+model = mbv2_eca()
+model.eval()
+print(model)
+input = torch.randn(1, 3, 224, 224)
+y = model(input)
+print(y.size())
+```
+
+#### ResNeSt
+
+- ResNeSt: Split-Attention Networks
+
+- 论文地址：https://hangzhang.org/files/resnest.pdf
+
+ResNeSt 实际上是站在巨人们上的"集大成者"，特别借鉴了：Multi-path 和 Feature-map Attention思想。作者@张航也提到了这篇文章主要是基于 SENet，SKNet 和 ResNeXt，把 attention 做到 group level。另外还引入了Split-Attention块，可以跨不同的feature-map组实现feature-map注意力。和其它网络主要的区别在于：
+1. GoogleNet 采用了Multi-path机制，其中每个网络块均由不同的卷积kernels组成。
+2. ResNeXt在ResNet bottle模块中采用分组卷积，将multi-path结构转换为统一操作。 
+3. SE-Net 通过自适应地重新校准通道特征响应来引入通道注意力（channel-attention）机制。 
+4. SK-Net 通过两个网络分支引入特征图注意力（feature-map attention）。一句话总结就是用multiple scale feature汇总得到总的feature map information，然后利用Softmax来指导channel-wise的注意力向量从而实现自适应分配不同尺度的表征信息。
+
+**网络结构如下：**
+
+![](./figures/resnest.jpg)
+
+
+- 代码实现
+```python
+import torch
+from light_cnns import resnest50_v1b
+model = resnest50_v1b()
+model.eval()
+print(model)
+input = torch.randn(1, 3, 224, 224)
+y = model(input)
+print(y.size())
+```
+
+#### SANet
+
+- SA-Net: Shuffle Attention for Deep Convolutional Neural Networks
+
+- 论文地址：https://arxiv.org/abs/2102.00240
+
+shuffle attention主要在空间注意力（Spatial Attention）与通道注意力（Channel Attention）的基础上，引入了特征分组与通道注意力信息置换这两个操作，得到了一种超轻量型的即插即用注意力模块。具体的说，SA首先将输入沿着通道维度拆分为多组，然后对每一组特征词用Shuffle unit 刻画与建模特征在空间维度与通道维度上的依赖关系，最后所有特征进行集成以及通过通道置换操作进行各组件单元的特征通信。主要结构如下所示：
+
+- 网络结构：
+
+![](./figures/sanet.jpg)
+
+- 代码实现
+```python
+import torch
+from light_cnns import mbv2_sa
+model = mbv2_sa()
+model.eval()
+print(model)
+input = torch.randn(1, 3, 224, 224)
+y = model(input)
+print(y.size())
+```
+
+
+#### Triplet attention
+- Rotate to Attend: Convolutional Triplet Attention Module
+
+- 论文地址：https://arxiv.org/abs/2010.03045
+
+本文中主要提出了Triplet Attention，一种轻量且有效的注意力模块。该注意力机制是一种通过使用Triplet Branch结构捕获跨维度交互信息(cross dimension interaction)来计算注意力权重的新方法。对于输入张量，Triplet Attention通过旋转操作和残差变换建立维度间的依存关系，并以可忽略的计算开销对通道和空间信息进行编码。该方法既简单又有效，并且可以轻松地插入经典Backbone中。本文通过捕捉空间维度和输入张量通道维度之间的交互作用，显著提高了网络的性能.
+
+- 网络结构
+
+![](./figures/triplet.jpg)
+
+
+- 代码结构
+
+```python
+import torch
+from light_cnns import mbv2_triplet
+model = mbv2_triplet()
+model.eval()
+print(model)
+input = torch.randn(1, 3, 224, 224)
+y = model(input)
+print(y.size())
+```
 
