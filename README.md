@@ -1,6 +1,6 @@
 # awesome_lightweight_networks
 
-![](https://img.shields.io/badge/awesome_lightweight_networks-v0.1.0-brightgreen)
+![](https://img.shields.io/badge/awesome_lightweight_networks-v0.2.0-brightgreen)
 ![](https://img.shields.io/badge/python->=v3.0-blue)
 ![](https://img.shields.io/badge/pytorch->=v1.4-red)
 
