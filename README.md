@@ -402,9 +402,9 @@ PP-LCNet: A Lightweight CPU Convolutional Neural Network
 - 如何在不增加延迟的情况下促进网络学习到更强的表征能力？
 - 目前有哪些要素可以在CPU上提高轻量级模型精度?
 - 如何有效结合不同的策略（激活函数、注意力模块、各模块间的位置顺序等等）在CPU上设计出轻量级模型？
-​
-本文主要提出了LCNet轻量级网络架构，在不增加推理时间的情况下提高了精度，
-并且将这些策略有效地结合起来以获得更好的精度和速度之间的平衡。所提架构取得了比ShuffleNetV2、MobileNetV2、MobileNetV3以及GhostNet更优的延迟-精度均衡。
+
+
+本文主要提出了LCNet轻量级网络架构，在不增加推理时间的情况下提高了精度，并且将这些策略有效地结合起来以获得更好的精度和速度之间的平衡。所提架构取得了比ShuffleNetV2、MobileNetV2、MobileNetV3以及GhostNet更优的延迟-精度均衡。
 
 具体网络架构如下：
 
@@ -434,7 +434,9 @@ ESPNet: Efficient Spatial Pyramid of Dilated Convolutions for Semantic Segmentat
 
 ESPNet是用于语义分割的轻量级网络，主要提出一种高效空间金字塔卷积模块（ESP Module），该模块包含point-wise卷积和空洞卷积金字塔,有助于减小模型运算量和内存、功率消耗，以提高在终端设备上的适用性。综合比较，ESPNet能在GPU/笔记本/终端设备上达到112FPS/21FPS/9FPS。
 
+
 网络架构如下：
+
 ![](./figures/espnetv1_1.jpg)
 
 ![](./figures/espnetv1_2.jpg)
@@ -452,13 +454,14 @@ y = model(input)
 print(y.size())
 ```
 
-##### ESPNetv2: A Light-weight, Power Efficient, and General Purpose Convolutional Neural Network
+#### ESPNetv2: A Light-weight, Power Efficient, and General Purpose Convolutional Neural Network
 
 ESPNetv2主要基于ESPNetv1进行了模型轻量化处理，主要包括：
 
 1. 基于深度可分离空洞卷积以及分组point-wise卷积改进ESP模块，提出了EESP(Extremely Efficient Spatial Pyramid)模块。相对于ESPNet拥有更好的精度以及更少的参数。
 
 2. 设计了cyclic learning rate scheduler，比一般的固定学习率的scheduler要好。
+
 
 其中下采样版本的EESP模块(Strided EESP with shortcut connection to an input image),如下图所示：
 
