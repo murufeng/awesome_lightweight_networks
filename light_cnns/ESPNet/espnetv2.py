@@ -262,23 +262,3 @@ class EESPNet(nn.Module):
 def espnetv2():
     model = EESPNet()
     return model
-
-
-def test(net):
-    import numpy as np
-    total_params = 0
-
-    for x in filter(lambda p: p.requires_grad, net.parameters()):
-        total_params += np.prod(x.data.numpy().shape)
-    print("Total number of params", total_params)
-    print("Total layers", len(list(filter(lambda p: p.requires_grad and len(p.data.size())>1, net.parameters()))))
-
-
-if __name__ == "__main__":
-    model = espnetv2()
-    model.eval()
-    print(model)
-    input = torch.randn(1, 3, 320, 256)
-    y = model(input)
-    print(y.size())
-    test(model)
