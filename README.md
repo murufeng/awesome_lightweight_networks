@@ -1,6 +1,6 @@
 # awesome_lightweight_networks
 
-![](https://img.shields.io/badge/awesome_lightweight_networks-v0.3.0-brightgreen)
+![](https://img.shields.io/badge/awesome_lightweight_networks-v0.4.0-brightgreen)
 ![](https://img.shields.io/badge/python->=v3.0-blue)
 ![](https://img.shields.io/badge/pytorch->=v1.4-red)
 
@@ -33,6 +33,8 @@
 ### [Transformer轻量级网络结构](#vit)
 
 ### [移动端部署CPU网络架构](#cpu)
+
+### [Inception系列](#inception)
 
 ### [CondenseNet系列](#condense)
 
@@ -422,6 +424,172 @@ input = torch.randn(1, 3, 224, 224)
 y = model(input)
 print(y.size())
 ```
+
+<a name="vit"></a>​
+
+### Transformer轻量级网络结构
+
+MobileViT: 一种更小，更快,高精度的轻量级Transformer端侧网络架构
+
+- 论文地址：https://arxiv.org/abs/2110.02178
+
+本文提出的MobileViT网络架构旨在有效的结合CNN的归纳偏置优势和ViT的全局感受野能力，
+它是一个轻量级，通用的，低时延的端侧网络架构。首先它利用了CNN中的空间归纳偏置优势以及对数据增强技巧的低敏感性的特性，
+其次，它结合了ViT中对输入特征图信息进行自适应加权和建立全局依赖关系等优点。具体做法如下
+![](./figures/mbvit.jpg)
+
+网络架构如下：
+![](./figures/mbvit_net.jpg)
+
+代码实现如下：
+```python
+import torch
+from light_cnns import mobilevit_s
+model = mobilevit_s()
+model.eval()
+print(model)
+input = torch.randn(1, 3, 224, 224)
+y = model(input)
+print(y.size())
+```
+
+<a name="inception"></a>​
+### Inception系列
+
+#### Going Deeper with Convolutions (GoogleNet)
+- 论文地址：https://arxiv.org/abs/1409.4842
+
+1. 首先使用1x1的卷积来进行升降维，这样就巧妙地解决了针对采用较大的卷积核计算复杂度较大这一问题；
+2. 然后再在多个不同尺度上运用不同大小的卷积核同时进行卷积，最后将特征进行聚合。
+
+主要结构如下所示：
+
+![](./figures/googlenet.jpg)
+
+代码实现如下:
+```python
+import torch
+from light_cnns import googlenet
+model = googlenet()
+model.eval()
+print(model)
+input = torch.randn(1, 3, 224, 224)
+y = model(input)
+print(y.size())
+
+```
+#### Rethinking the Inception Architecture for Computer Vision
+
+- 论文地址：https://arxiv.org/abs/1512.00567
+
+Inceptionv2针对InceptionV1改进的点主要有：
+
+1. 引入了BN层来对中间特征进行归一化。使用BN层之后，可以加快收敛速度，防止模型出现过拟合.
+2. 使用因子分解的方法，主要包括：将 5x5 的卷积分解为两个 3x3 的卷积运算以提升计算速度；将 nxn 的卷积核尺寸分解为 1xn 和 nx1 两个卷积.
+3. 扩展模型的宽度，来有效地解决表征性瓶颈问题。
+
+代码实现如下：
+
+```python
+import torch
+from light_cnns import inception_v2
+model = inception_v2()
+model.eval()
+print(model)
+input = torch.randn(1, 3, 224, 224)
+y = model(input)
+print(y.size())
+
+```
+
+Inception Net v3 整合了前面 Inception v2 的特点，除此之外，还包括以下5点改进：
+
+1. 不再直接使用max pooling层进行下采样，作者设计了另外一种方案，即两个并行的分支，一个是pooling层，另外一个卷积层，最后将两者结果concat在一起。这样在使用较小的计算量情形下还可以避免瓶颈层，ShuffleNet中也采用了这种策略。
+
+2. 使用RMSProp 优化器；
+3. Factorized 7x7 卷积；
+4. 辅助分类器使用了 BatchNorm；
+5. 使用了label smoothing;
+
+代码实现如下：
+
+```python
+import torch
+from light_cnns import inception_v3
+model = inception_v3()
+model.eval()
+print(model)
+input = torch.randn(1, 3, 224, 224)
+y = model(input)
+print(y.size())
+```
+
+#### Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning
+- 论文地址：https://arxiv.org/abs/1602.07261
+
+1. Inception v4 引入了一个新的stem模块，该模块放在Inception块之间执行。
+2. 基于新的stem和Inception 模块，Inception v4重新提出了三种新的Inception模块分别称为 A、B 和 C
+3. 引入了专用的「缩减块」（reduction block），它被用于改变网格的宽度和高度。
+
+```python
+import torch
+from light_cnns import inception_v4
+model = inception_v4()
+model.eval()
+print(model)
+input = torch.randn(1, 3, 224, 224)
+y = model(input)
+print(y.size())
+```
+
+#### Xception: Deep Learning with Depthwise Separable Convolutions
+
+论文地址：https://arxiv.org/abs/1610.02357
+
+基于Inception的模块，一个新的架构Xception应运而生。Xception取义自Extreme Inception，
+即Xception是一种极端的Inception.它的提出主要是为了解耦通道相关性和空间相关性。Xception主要通过提出深度可分离卷积则成功实现了将学习空间相关性和学习通道间相关性的任务完全分离，具体操作如下：
+
+1. 将Inception模块简化，仅保留包含3x3的卷积的分支：
+2. 将所有1x1的卷积进行拼接.
+3. 进一步增加3x3的卷积的分支的数量，使它与1x1的卷积的输出通道数相等：
+4. 此时每个3x3的卷积即作用于仅包含一个通道的特征图上，作者称之为“极致的Inception（Extream Inception）”模块，这就是Xception的基本模块。事实上，调节每个3x3的卷积作用的特征图的通道数，
+即调节3x3的卷积的分支的数量与1x1的卷积的输出通道数的比例，可以实现一系列处于传统Inception模块和“极致的Inception”模块之间的状态。
+
+代码实现如下：
+```python
+import torch
+from light_cnns import xception
+model = xception()
+model.eval()
+print(model)
+input = torch.randn(1, 3, 224, 224)
+y = model(input)
+print(y.size())
+```
+
+#### Inception Convolution with Efficient Dilation Search（CVPR2021 oral）
+
+- 论文地址：https://arxiv.org/abs/2012.13587
+
+为了充分挖掘空洞卷积的潜力，本文主要结合一种基于统计优化的简单而高效(零成本)的空洞搜索算法（EDO，effective dilation search）提出了一种新的空洞卷积变体，即inception (dilated)卷积
+
+网络结构如下所示：
+
+![](./figures/ic_conv.jpg)
+
+代码实现如下：
+```python
+import torch
+from light_cnns import ic_resnet50
+patter = './pattern_zoo/detection/ic_resnet50_k9.json'
+model = ic_resnet50(pattern_path=patter)
+model.eval()
+print(model)
+input = torch.randn(1, 3, 224, 224)
+y = model(input)
+print(y.size())
+```
+
 
 <a name="seg"></a>​
 ### 轻量级图像分割网络架构
