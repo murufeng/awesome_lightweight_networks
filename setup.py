@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
   name = 'light_cnns',
   packages = find_packages(),
-  version = '0.4.0',
+  version = '0.4.2',
   license='MIT',
   description = 'Implementation of Lightweight Network in Pytorch',
   author = 'murufeng',
@@ -14,12 +14,13 @@ setup(
     'lightweight neural network',
     'image classification',
     'image segmentation',
-    'computer vision'
+    'computer vision',
+    'Real-Time Networks'
   ],
   install_requires=[
     'einops>=0.3',
     'torch>=1.4',
-    'torchvision'
+    'torchvision',
   ],
   classifiers=[
       'Development Status :: 4 - Beta',
