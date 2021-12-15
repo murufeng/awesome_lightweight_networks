@@ -21,6 +21,11 @@
 
 （欢迎各位轻量级网络科研学者将自己工作的核心代码整理到本项目中，推动科研社区的发展，我们会在readme中注明代码的作者~）
 
+### 安装
+```python
+pip install light_cnns
+```
+
 ## Table of Contents
 ### [MobileNets系列](#MobileNet)
   
