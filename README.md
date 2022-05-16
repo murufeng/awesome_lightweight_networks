@@ -6,6 +6,7 @@
 
 [![GitHub stars](https://img.shields.io/github/stars/murufeng/awesome_lightweight_networks.svg?style=social&label=Stars)](https://github.com/murufeng/awesome_lightweight_networks)
 [![GitHub forks](https://img.shields.io/github/forks/murufeng/awesome_lightweight_networks.svg?style=social&label=Forks)](https://github.com/murufeng/awesome_lightweight_networks)
+![visitors](https://visitor-badge.glitch.me/badge?page_id=murufeng/awesome_lightweight_networks) 
 
 ![](./figures/view.jpg)
 
